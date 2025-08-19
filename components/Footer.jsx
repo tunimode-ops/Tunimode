@@ -87,17 +87,6 @@ const Footer = () => {
 			{/* Bottom Bar */}
 			<div className='border-t border-gray-200 py-4 text-center text-xs md:text-sm text-gray-500'>
 				© {new Date().getFullYear()} Tunimode. Tous droits réservés.
-				<p className='mt-4 text-sm text-gray-500'>
-					Site développé par{' '}
-					<a
-						href='https://www.linkedin.com/in/ghorbel-adem-324659219/'
-						target='_blank'
-						rel='noopener noreferrer'
-						className='text-gray-500 underline hover:text-gray-700 transition'
-					>
-						<strong>Ghorbel Adem</strong>
-					</a>
-				</p>
 			</div>
 		</footer>
 	);
