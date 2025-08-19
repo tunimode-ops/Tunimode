@@ -14,7 +14,7 @@ export default function AboutPage() {
 				<section className='relative flex flex-col md:flex-row items-center justify-between px-6 md:px-16 lg:px-24 py-16 bg-gradient-to-r from-main-color-500/90 to-main-color-700/90 text-white rounded-b-3xl shadow-lg'>
 					<div className='flex-1 text-center md:text-left'>
 						<h1 className='text-4xl md:text-5xl font-extrabold leading-tight'>
-							À propos de <span className='text-yellow-300'>Tunimode</span>
+							À propos de <span className='text-blue-300'>Tunimode</span>
 						</h1>
 						<p className='mt-6 text-lg md:text-xl max-w-lg mx-auto md:mx-0'>
 							Nous vous proposons les meilleurs produits, sélectionnés avec
@@ -24,7 +24,7 @@ export default function AboutPage() {
 					</div>
 					<div className='flex-1 mt-10 md:mt-0 flex justify-center'>
 						<Image
-							src={assets.placeholder} // 👉 replace with your image
+							src={assets.tunimode} // 👉 replace with your image
 							alt='Tunimode About'
 							width={400}
 							height={400}
@@ -51,11 +51,12 @@ export default function AboutPage() {
 				<section className='px-6 md:px-16 lg:px-24 py-20 bg-gray-50 rounded-3xl'>
 					<div className='grid md:grid-cols-2 gap-12 items-center'>
 						<Image
-							src={assets.placeholder} // 👉 replace with your image
+							src={assets.mission} // 👉 replace with your image
 							alt='Our Mission'
 							width={500}
 							height={350}
 							className='rounded-2xl shadow-md'
+							style={{ objectFit: 'cover', maxHeight: '500px' }}
 						/>
 						<div>
 							<h2 className='text-3xl md:text-4xl font-bold mb-6 text-main-color-600'>
@@ -83,7 +84,7 @@ export default function AboutPage() {
 						Tunimode.
 					</p>
 					<button
-						onClick={() => (window.location.href = '/products')}
+						onClick={() => (window.location.href = '/all-products')}
 						className='bg-main-color-600 hover:bg-main-color-700 text-white px-8 py-3 rounded-full font-medium transition'
 					>
 						Explorer les produits

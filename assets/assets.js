@@ -1,4 +1,9 @@
 import logo from './logo.svg';
+import tunimode from './tunimode.png';
+import kids from './kids.jpg';
+import man from './man.jpg';
+import woman from './woman.jpg';
+import mission from './mission.jpg';
 import placeholder from './placeholder.png';
 import search_icon from './search_icon.svg';
 import user_icon from './user_icon.svg';
@@ -22,12 +27,14 @@ import star_icon from './star_icon.svg';
 import redirect_icon from './redirect_icon.svg';
 import star_dull_icon from './star_dull_icon.svg';
 import upload_area from './upload_area.png';
-import girl_with_headphone_image from './girl_with_headphone_image.png';
-import girl_with_earphone_image from './girl_with_earphone_image.png';
-import boy_with_laptop_image from './boy_with_laptop_image.png';
 import checkmark from './checkmark.png';
 
 export const assets = {
+	tunimode,
+	man,
+	mission,
+	kids,
+	woman,
 	logo,
 	placeholder,
 	search_icon,
@@ -52,9 +59,6 @@ export const assets = {
 	redirect_icon,
 	star_dull_icon,
 	upload_area,
-	girl_with_headphone_image,
-	girl_with_earphone_image,
-	boy_with_laptop_image,
 	checkmark,
 };
 

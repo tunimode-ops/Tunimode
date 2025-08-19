@@ -17,32 +17,18 @@ const Footer = () => {
 					</p>
 					<div className='flex gap-4 mt-6'>
 						<a
-							href='#'
+							href='https://www.instagram.com/tunimode/'
 							aria-label='Instagram'
 							className='p-2 bg-gray-200 rounded-full hover:bg-main-color-600 hover:text-white transition'
 						>
 							<FaInstagram size={16} />
 						</a>
 						<a
-							href='#'
+							href='https://www.facebook.com/people/TuniMode/61579307951186/'
 							aria-label='Facebook'
 							className='p-2 bg-gray-200 rounded-full hover:bg-main-color-600 hover:text-white transition'
 						>
 							<FaFacebookF size={16} />
-						</a>
-						<a
-							href='#'
-							aria-label='Twitter'
-							className='p-2 bg-gray-200 rounded-full hover:bg-main-color-600 hover:text-white transition'
-						>
-							<FaTwitter size={16} />
-						</a>
-						<a
-							href='#'
-							aria-label='TikTok'
-							className='p-2 bg-gray-200 rounded-full hover:bg-main-color-600 hover:text-white transition'
-						>
-							<FaTiktok size={16} />
 						</a>
 					</div>
 				</div>
@@ -64,7 +50,7 @@ const Footer = () => {
 						<li>
 							<a
 								className='hover:text-main-color-600 transition'
-								href='/product-list'
+								href='/all-products'
 							>
 								Boutique
 							</a>
@@ -92,9 +78,8 @@ const Footer = () => {
 				<div>
 					<h2 className='font-semibold text-gray-900 mb-5'>Contactez-nous</h2>
 					<ul className='text-sm space-y-3'>
-						<li>📍 Tunis, Tunisie</li>
-						<li>📞 +216 12 345 678</li>
-						<li>📧 support@tunimode.com</li>
+						<li>📍 Sfax, Tunisie</li>
+						<li>📧 tunimode@gmail.com</li>
 					</ul>
 				</div>
 			</div>
@@ -102,6 +87,17 @@ const Footer = () => {
 			{/* Bottom Bar */}
 			<div className='border-t border-gray-200 py-4 text-center text-xs md:text-sm text-gray-500'>
 				© {new Date().getFullYear()} Tunimode. Tous droits réservés.
+				<p className='mt-4 text-sm text-gray-500'>
+					Site développé par{' '}
+					<a
+						href='https://www.linkedin.com/in/ghorbel-adem-324659219/'
+						target='_blank'
+						rel='noopener noreferrer'
+						className='text-gray-500 underline hover:text-gray-700 transition'
+					>
+						<strong>Ghorbel Adem</strong>
+					</a>
+				</p>
 			</div>
 		</footer>
 	);

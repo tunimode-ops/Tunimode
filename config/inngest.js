@@ -2,6 +2,8 @@ import { Inngest } from 'inngest';
 import connectDB from './db';
 import User from '@/models/User';
 import Order from '@/models/Order';
+import emailjs from 'emailjs-com';
+import { assets } from '@/assets/assets';
 
 // Create a client to send and receive events
 export const inngest = new Inngest({ id: 'tunimode-next' });
@@ -82,6 +84,66 @@ export const createUserOrder = inngest.createFunction(
 
 		await connectDB();
 		await Order.insertMany(orders);
+		// send email notification
+		for (const order of insertedOrders) {
+			try {
+				const user = await User.findById(order.userId);
+				if (!user) continue;
+
+				const fullAddress = await Address.findById(order.address);
+				const addressText = fullAddress
+					? `${fullAddress.fullName}, ${fullAddress.area}, ${
+							fullAddress.city
+					  }, ${fullAddress.state || ''}, ${fullAddress.pincode}`
+					: 'Adresse inconnue';
+
+				// Fetch product details
+				const itemsWithDetails = [];
+				for (const i of order.items) {
+					const product = await Product.findById(i.product);
+					if (product) {
+						itemsWithDetails.push({
+							name: product.name,
+							quantity: i.quantity,
+							price: product.price,
+							offerPrice: product.offerPrice,
+							imageUrl: product?.image?.[0]?.url || assets.placeholder,
+						});
+					}
+				}
+
+				await emailjs.send(
+					'service_8wof16i', // Remplace par ton Service ID EmailJS
+					'template_er2dcz8', // Remplace par ton Template ID EmailJS
+					{
+						to_name: user.fullName || user.name || 'Client',
+						to_email: user.email,
+						order_id: order._id.toString(),
+						amount: order.amount,
+						address: addressText,
+						items: itemsWithDetails
+							.map(
+								i =>
+									`<li style="display:flex; align-items:center; margin-bottom:10px;">
+         <img src="${i.imageUrl}" alt="${
+										i.name
+									}" style="width:60px; height:60px; object-fit:cover; border-radius:6px; margin-right:10px;">
+         <span>${i.name} x ${i.quantity} - ${
+										i.offerPrice > 0 && i.offerPrice < i.price
+											? i.offerPrice
+											: i.price
+									} DT</span>
+       </li>`
+							)
+							.join(''),
+					},
+					'yWpbuDTAtjZannpid' // Remplace par ta Public Key EmailJS
+				);
+			} catch (err) {
+				console.error('Erreur EmailJS :', err);
+			}
+		}
+
 		return {
 			success: true,
 			processed: orders.length,

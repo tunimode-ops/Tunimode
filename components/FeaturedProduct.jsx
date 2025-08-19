@@ -8,21 +8,21 @@ const categories = [
 	{
 		id: 1,
 		key: 'kids',
-		image: assets.girl_with_headphone_image, // replace with your image
+		image: assets.kids, // replace with your image
 		title: 'Enfants',
 		description: 'Trouvez les meilleurs produits pour enfants.',
 	},
 	{
 		id: 2,
 		key: 'women',
-		image: assets.girl_with_earphone_image, // replace with your image
+		image: assets.woman, // replace with your image
 		title: 'Femmes',
 		description: 'Découvrez les dernières nouveautés pour femmes.',
 	},
 	{
 		id: 3,
 		key: 'men',
-		image: assets.boy_with_laptop_image, // replace with your image
+		image: assets.man, // replace with your image
 		title: 'Hommes',
 		description: 'Explorez les meilleurs produits pour hommes.',
 	},

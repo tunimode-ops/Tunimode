@@ -1,15 +1,9 @@
 'use client';
 import React, { useState } from 'react';
-import {
-	FaEnvelope,
-	FaPhone,
-	FaMapMarkerAlt,
-	FaTwitter,
-	FaFacebookF,
-	FaLinkedinIn,
-} from 'react-icons/fa';
+import { FaEnvelope, FaFacebookF, FaInstagram } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import Navbar from '@/components/Navbar';
+import emailjs from 'emailjs-com';
 
 const ContactPage = () => {
 	const [formData, setFormData] = useState({
@@ -27,13 +21,25 @@ const ContactPage = () => {
 	const handleSubmit = async e => {
 		e.preventDefault();
 		setLoading(true);
+
 		try {
-			// Replace with your API endpoint
-			await new Promise(res => setTimeout(res, 1000));
-			toast.success('Message sent successfully!');
+			await emailjs.send(
+				'service_8wof16i', // Remplace par ton Service ID EmailJS
+				'template_3eflku8', // Remplace par ton Template ID EmailJS
+				{
+					name: formData.name,
+					email: formData.email,
+					subject: formData.subject,
+					message: formData.message,
+				},
+				'yWpbuDTAtjZannpid' // Remplace par ton Public Key EmailJS
+			);
+
+			toast.success('Message envoyé avec succès !');
 			setFormData({ name: '', email: '', subject: '', message: '' });
 		} catch (err) {
-			toast.error('Failed to send message.');
+			console.error(err);
+			toast.error('Échec de l’envoi du message.');
 		} finally {
 			setLoading(false);
 		}
@@ -52,40 +58,22 @@ const ContactPage = () => {
 						</p>
 
 						<div className='flex items-center gap-3 text-gray-700'>
-							<FaMapMarkerAlt className='text-main-color-600 w-5 h-5' />
-							<span>Prêt à Porter: 123 Rue Principale, Ville</span>
-						</div>
-						<div className='flex items-center gap-3 text-gray-700'>
-							<FaMapMarkerAlt className='text-main-color-600 w-5 h-5' />
-							<span>Fripe: 456 Deuxième Avenue, Ville</span>
-						</div>
-						<div className='flex items-center gap-3 text-gray-700'>
-							<FaPhone className='text-main-color-600 w-5 h-5' />
-							<span>+123 456 7890</span>
-						</div>
-						<div className='flex items-center gap-3 text-gray-700'>
 							<FaEnvelope className='text-main-color-600 w-5 h-5' />
-							<span>contact@example.com</span>
+							<span>tunimode@gmail.com</span>
 						</div>
 
 						<div className='flex gap-4 mt-4'>
 							<a
-								href='#'
+								href='https://www.facebook.com/people/TuniMode/61579307951186/'
 								className='p-2 rounded-full bg-blue-500 text-white hover:bg-blue-600 transition'
 							>
 								<FaFacebookF />
 							</a>
 							<a
-								href='#'
-								className='p-2 rounded-full bg-sky-400 text-white hover:bg-sky-500 transition'
+								href='https://www.instagram.com/tunimode/'
+								className='p-2 rounded-full bg-pink-400 text-white hover:bg-sky-500 transition'
 							>
-								<FaTwitter />
-							</a>
-							<a
-								href='#'
-								className='p-2 rounded-full bg-blue-700 text-white hover:bg-blue-800 transition'
-							>
-								<FaLinkedinIn />
+								<FaInstagram />
 							</a>
 						</div>
 					</div>

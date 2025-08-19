@@ -10,7 +10,7 @@ import { assets } from '@/assets/assets';
 export default function HeaderSlider() {
 	const { products, router } = useAppContext();
 
-	const sliderProducts = products.slice(0, 5);
+	const sliderProducts = products.filter(p => p.quantity != 0).slice(0, 5);
 
 	if (!sliderProducts.length) {
 		return (

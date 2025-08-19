@@ -8,6 +8,33 @@ import { useAppContext } from '@/context/AppContext';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
+const tunisianCities = [
+	'Tunis',
+	'Ariana',
+	'Ben Arous',
+	'Manouba',
+	'Nabeul',
+	'Zaghouan',
+	'Bizerte',
+	'Beja',
+	'Jendouba',
+	'Kef',
+	'Siliana',
+	'Sousse',
+	'Monastir',
+	'Mahdia',
+	'Sfax',
+	'Kairouan',
+	'Kasserine',
+	'Sidi Bouzid',
+	'Gabes',
+	'Medenine',
+	'Tataouine',
+	'Gafsa',
+	'Tozeur',
+	'Kebili',
+];
+
 const AddAddress = () => {
 	const { getToken, router } = useAppContext();
 	const [address, setAddress] = useState({
@@ -21,6 +48,15 @@ const AddAddress = () => {
 
 	const onSubmitHandler = async e => {
 		e.preventDefault();
+
+		// Validate phone number
+		if (!/^\d{8}$/.test(address.phoneNumber)) {
+			toast.error(
+				'Le numéro de téléphone doit contenir exactement 8 chiffres.'
+			);
+			return;
+		}
+
 		try {
 			const token = await getToken();
 			const { data } = await axios.post(
@@ -63,7 +99,7 @@ const AddAddress = () => {
 						<input
 							className='px-2 py-2.5 focus:border-main-color-500 transition border border-gray-500/30 rounded outline-none w-full text-gray-500'
 							type='text'
-							placeholder='Numéro de téléphone'
+							placeholder='Numéro de téléphone (8 chiffres)'
 							onChange={e =>
 								setAddress({ ...address, phoneNumber: e.target.value })
 							}
@@ -80,20 +116,24 @@ const AddAddress = () => {
 						/>
 						<textarea
 							className='px-2 py-2.5 focus:border-main-color-500 transition border border-gray-500/30 rounded outline-none w-full text-gray-500 resize-none'
-							type='text'
 							rows={4}
 							placeholder='Adresse (Zone et Rue)'
 							onChange={e => setAddress({ ...address, area: e.target.value })}
 							value={address.area}
 						></textarea>
 						<div className='flex space-x-3'>
-							<input
+							<select
 								className='px-2 py-2.5 focus:border-main-color-500 transition border border-gray-500/30 rounded outline-none w-full text-gray-500'
-								type='text'
-								placeholder='Ville/District/Commune'
 								onChange={e => setAddress({ ...address, city: e.target.value })}
 								value={address.city}
-							/>
+							>
+								<option value=''>-- Sélectionnez une ville --</option>
+								{tunisianCities.map(city => (
+									<option key={city} value={city}>
+										{city}
+									</option>
+								))}
+							</select>
 							<input
 								className='px-2 py-2.5 focus:border-main-color-500 transition border border-gray-500/30 rounded outline-none w-full text-gray-500'
 								type='text'
