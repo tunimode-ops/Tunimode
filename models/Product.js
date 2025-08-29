@@ -35,7 +35,7 @@ const productSchema = new mongoose.Schema({
 	shop: {
 		type: String,
 		required: true,
-		enum: ['Prêt à Porter', 'Fripe'],
+		enum: ['Nouveau', 'Fripe'],
 	},
 	test: {
 		type: String,
