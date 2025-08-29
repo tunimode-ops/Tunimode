@@ -121,7 +121,7 @@ const Navbar = () => {
 					<BoxIcon />
 				</button>
 				<button onClick={() => router.push('/all-products?shop=Nouveau')}>
-					<span className='text-sm font-medium'>Prêt</span>
+					<span className='text-sm font-medium'>Nouveau</span>
 				</button>
 				<button onClick={() => router.push('/all-products?shop=Fripe')}>
 					<span className='text-sm font-medium'>Fripe</span>
