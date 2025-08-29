@@ -42,7 +42,8 @@ export async function GET(request) {
 		console.error(error);
 		return NextResponse.json({
 			success: false,
-			message: error.message,
+			message:
+				'Une erreur est survenue lors de la récupération des derniers produits. Veuillez réessayer.',
 			products: [],
 		});
 	}

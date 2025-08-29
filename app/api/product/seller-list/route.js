@@ -9,7 +9,13 @@ export async function GET(request) {
 		const { userId } = getAuth(request);
 		const isSeller = await authSeller(userId);
 		if (!isSeller) {
-			return NextResponse.json({ success: false, message: 'Not authorized' });
+			return NextResponse.json(
+				{
+					success: false,
+					message: "Non autorisé. Vous n'êtes pas un vendeur.",
+				},
+				{ status: 403 }
+			);
 		}
 
 		await connectDB();
@@ -58,6 +64,10 @@ export async function GET(request) {
 		});
 	} catch (error) {
 		console.log(error);
-		return NextResponse.json({ success: false, message: error.message });
+		return NextResponse.json({
+			success: false,
+			message:
+				'Une erreur est survenue lors de la récupération de la liste des produits du vendeur. Veuillez réessayer.',
+		});
 	}
 }

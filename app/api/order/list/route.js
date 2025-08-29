@@ -8,6 +8,17 @@ import { NextResponse } from 'next/server';
 export async function GET(request) {
 	try {
 		const { userId } = getAuth(request);
+
+		if (!userId) {
+			return NextResponse.json(
+				{
+					success: false,
+					message: 'Vous devez être connecté pour voir vos commandes.',
+				},
+				{ status: 401 }
+			);
+		}
+
 		await connectDB();
 		Address.length;
 		Product.length;
@@ -28,7 +39,8 @@ export async function GET(request) {
 		console.log(error);
 		return NextResponse.json({
 			success: false,
-			message: error.message,
+			message:
+				'Une erreur est survenue lors de la récupération de vos commandes. Veuillez réessayer.',
 		});
 	}
 }

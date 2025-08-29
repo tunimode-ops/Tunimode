@@ -12,7 +12,7 @@ export async function PUT(request) {
 			return NextResponse.json(
 				{
 					success: false,
-					message: 'You are not authorized',
+					message: "Vous n'êtes pas autorisé à effectuer cette action.",
 				},
 				{ status: 401 }
 			);
@@ -24,7 +24,7 @@ export async function PUT(request) {
 			return NextResponse.json(
 				{
 					success: false,
-					message: 'Order ID and state are required',
+					message: "L'ID de la commande et l'état sont requis.",
 				},
 				{ status: 400 }
 			);
@@ -42,7 +42,7 @@ export async function PUT(request) {
 			return NextResponse.json(
 				{
 					success: false,
-					message: 'Order not found',
+					message: 'Commande introuvable.',
 				},
 				{ status: 404 }
 			);
@@ -50,7 +50,7 @@ export async function PUT(request) {
 
 		return NextResponse.json({
 			success: true,
-			message: 'Order state updated successfully',
+			message: 'État de la commande mis à jour avec succès.',
 			order: updatedOrder,
 		});
 	} catch (error) {
@@ -58,7 +58,8 @@ export async function PUT(request) {
 		return NextResponse.json(
 			{
 				success: false,
-				message: error.message,
+				message:
+					"Une erreur est survenue lors de la mise à jour de l'état de la commande. Veuillez réessayer.",
 			},
 			{ status: 500 }
 		);

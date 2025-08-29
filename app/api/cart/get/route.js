@@ -17,6 +17,11 @@ export async function GET(request) {
 			cartItems,
 		});
 	} catch (error) {
-		return NextResponse.json({ success: false, message: error.message });
+		console.log(error);
+		return NextResponse.json({
+			success: false,
+			message:
+				'Une erreur est survenue lors de la récupération du panier. Veuillez réessayer.',
+		});
 	}
 }

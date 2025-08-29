@@ -17,7 +17,11 @@ export async function DELETE(request) {
 		const isSeller = await authSeller(userId);
 		if (!isSeller) {
 			return NextResponse.json(
-				{ success: false, message: 'You are not a seller' },
+				{
+					success: false,
+					message:
+						"Vous n'êtes pas autorisé à supprimer un produit (non-vendeur).",
+				},
 				{ status: 403 }
 			);
 		}
@@ -25,7 +29,7 @@ export async function DELETE(request) {
 		const { productId } = await request.json();
 		if (!productId) {
 			return NextResponse.json(
-				{ success: false, message: 'Product ID is required' },
+				{ success: false, message: "L'ID du produit est requis." },
 				{ status: 400 }
 			);
 		}
@@ -35,7 +39,7 @@ export async function DELETE(request) {
 		const product = await Product.findOne({ _id: productId });
 		if (!product) {
 			return NextResponse.json(
-				{ success: false, message: 'Product not found or not authorized' },
+				{ success: false, message: 'Produit introuvable ou non autorisé.' },
 				{ status: 404 }
 			);
 		}
@@ -53,13 +57,17 @@ export async function DELETE(request) {
 
 		return NextResponse.json({
 			success: true,
-			message: 'Images deleted successfully',
+			message: 'Images supprimées avec succès.',
 			product,
 		});
 	} catch (error) {
 		console.error(error);
 		return NextResponse.json(
-			{ success: false, message: error.message },
+			{
+				success: false,
+				message:
+					'Une erreur est survenue lors de la suppression des images du produit. Veuillez réessayer.',
+			},
 			{ status: 500 }
 		);
 	}

@@ -10,10 +10,14 @@ export async function GET(request) {
 		const { userId } = getAuth(request);
 		const isSeller = await authSeller(userId);
 		if (!isSeller) {
-			return NextResponse.json({
-				success: false,
-				message: 'You are not a seller',
-			});
+			return NextResponse.json(
+				{
+					success: false,
+					message:
+						"Vous n'êtes pas autorisé à accéder à cette ressource (non-vendeur).",
+				},
+				{ status: 403 }
+			);
 		}
 		await connectDB();
 		Address.length;
@@ -42,7 +46,8 @@ export async function GET(request) {
 		console.log(error);
 		return NextResponse.json({
 			success: false,
-			message: error.message,
+			message:
+				'Une erreur est survenue lors de la récupération des commandes du vendeur. Veuillez réessayer.',
 		});
 	}
 }

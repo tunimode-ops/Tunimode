@@ -9,12 +9,24 @@ import { NextResponse } from 'next/server';
 export async function POST(request) {
 	try {
 		const { userId } = getAuth(request);
+
+		if (!userId) {
+			return NextResponse.json(
+				{
+					success: false,
+					message: 'Vous devez créer un compte pour passer une commande.',
+				},
+				{ status: 401 }
+			);
+		}
+
 		const { address, items } = await request.json();
 
 		if (!address || items.length === 0) {
 			return NextResponse.json({
 				success: false,
-				message: 'Invalid data',
+				message:
+					'Données invalides. Veuillez fournir une adresse et des articles.',
 			});
 		}
 
@@ -38,11 +50,11 @@ export async function POST(request) {
 				return NextResponse.json(
 					{
 						success: false,
-						message: `Insufficient stock for ${
-							product?.name || 'a product'
-						}. Available: ${product?.quantity || 0}, Requested: ${
+						message: `Stock insuffisant pour ${
+							product?.name || 'un produit'
+						}. Disponible: ${product?.quantity || 0}, Demandé: ${
 							item.quantity
-						}`,
+						}.`,
 					},
 					{ status: 400 }
 				);
@@ -79,13 +91,14 @@ export async function POST(request) {
 		await user.save();
 		return NextResponse.json({
 			success: true,
-			message: 'Order placed successfully',
+			message: 'Commande passée avec succès',
 		});
 	} catch (error) {
 		console.log(error);
 		return NextResponse.json({
 			success: false,
-			message: error.message,
+			message:
+				'Une erreur est survenue lors du traitement de votre commande. Veuillez réessayer.',
 		});
 	}
 }

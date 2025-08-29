@@ -13,6 +13,10 @@ export async function GET(request) {
 		return NextResponse.json({ success: true, products });
 	} catch (error) {
 		console.log(error);
-		return NextResponse.json({ success: false, message: error.message });
+		return NextResponse.json({
+			success: false,
+			message:
+				'Une erreur est survenue lors de la récupération des produits. Veuillez réessayer.',
+		});
 	}
 }

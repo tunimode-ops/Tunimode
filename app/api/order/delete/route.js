@@ -12,7 +12,7 @@ export async function DELETE(request) {
 			return NextResponse.json(
 				{
 					success: false,
-					message: 'You are not authorized',
+					message: "Vous n'êtes pas autorisé à effectuer cette action.",
 				},
 				{ status: 401 }
 			);
@@ -24,7 +24,7 @@ export async function DELETE(request) {
 			return NextResponse.json(
 				{
 					success: false,
-					message: 'Order ID is required',
+					message: "L'ID de la commande est requis.",
 				},
 				{ status: 400 }
 			);
@@ -38,7 +38,7 @@ export async function DELETE(request) {
 			return NextResponse.json(
 				{
 					success: false,
-					message: 'Order not found',
+					message: 'Commande introuvable.',
 				},
 				{ status: 404 }
 			);
@@ -46,14 +46,15 @@ export async function DELETE(request) {
 
 		return NextResponse.json({
 			success: true,
-			message: 'Order deleted successfully',
+			message: 'Commande supprimée avec succès.',
 		});
 	} catch (error) {
 		console.log(error);
 		return NextResponse.json(
 			{
 				success: false,
-				message: error.message,
+				message:
+					'Une erreur est survenue lors de la suppression de la commande. Veuillez réessayer.',
 			},
 			{ status: 500 }
 		);

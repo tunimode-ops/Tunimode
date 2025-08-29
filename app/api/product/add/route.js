@@ -16,10 +16,14 @@ export async function POST(request) {
 		const { userId } = getAuth(request);
 		const isSeller = await authSeller(userId);
 		if (!isSeller) {
-			return NextResponse.json({
-				success: false,
-				message: 'You are not a seller',
-			});
+			return NextResponse.json(
+				{
+					success: false,
+					message:
+						"Vous n'êtes pas autorisé à ajouter un produit (non-vendeur).",
+				},
+				{ status: 403 }
+			);
 		}
 
 		const formData = await request.formData();
@@ -52,7 +56,8 @@ export async function POST(request) {
 		if (!files || files.length === 0) {
 			return NextResponse.json({
 				success: false,
-				message: 'No images uploaded',
+				message:
+					'Aucune image téléchargée. Veuillez ajouter au moins une image.',
 			});
 		}
 
@@ -104,14 +109,15 @@ export async function POST(request) {
 
 		return NextResponse.json({
 			success: true,
-			message: 'Product added successfully',
+			message: 'Produit ajouté avec succès.',
 			newProduct,
 		});
 	} catch (error) {
 		console.log(error);
 		return NextResponse.json({
 			success: false,
-			message: error.message,
+			message:
+				"Une erreur est survenue lors de l'ajout du produit. Veuillez réessayer.",
 		});
 	}
 }

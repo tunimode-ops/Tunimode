@@ -6,6 +6,17 @@ import { NextResponse } from 'next/server';
 export async function POST(request) {
 	try {
 		const { userId } = getAuth(request);
+
+		if (!userId) {
+			return NextResponse.json(
+				{
+					success: false,
+					message: 'Vous devez être connecté pour mettre à jour votre panier.',
+				},
+				{ status: 401 }
+			);
+		}
+
 		const { cartData } = await request.json();
 		await connectDB();
 
@@ -14,9 +25,14 @@ export async function POST(request) {
 		await user.save();
 		return NextResponse.json({
 			success: true,
-			message: 'Cart updated successfully',
+			message: 'Panier mis à jour avec succès',
 		});
 	} catch (error) {
-		return NextResponse.json({ success: false, message: error.message });
+		console.log(error);
+		return NextResponse.json({
+			success: false,
+			message:
+				'Une erreur est survenue lors de la mise à jour du panier. Veuillez réessayer.',
+		});
 	}
 }

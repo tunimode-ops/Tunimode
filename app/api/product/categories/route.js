@@ -14,7 +14,10 @@ export const GET = async req => {
 	} catch (error) {
 		console.error('Error fetching categories:', error);
 		return NextResponse.json(
-			{ error: 'An error occurred while fetching categories.' },
+			{
+				error:
+					'Une erreur est survenue lors de la récupération des catégories.',
+			},
 			{ status: 500 }
 		);
 	}
