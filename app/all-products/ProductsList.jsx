@@ -108,7 +108,7 @@ const ProductsList = () => {
 						className='border border-gray-300 rounded px-4 py-2 w-full md:w-48 outline-none focus:ring-2 focus:ring-main-color-500'
 					>
 						<option value='All'>Toutes les boutiques</option>
-						<option value='Prêt à Porter'>Prêt à Porter</option>
+						<option value='Nouveau'>Nouveau</option>
 						<option value='Fripe'>Fripe</option>
 					</select>
 				</div>

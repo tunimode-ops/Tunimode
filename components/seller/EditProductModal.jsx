@@ -10,7 +10,7 @@ const EditProductModal = ({ product, isOpen, onClose, getToken, onUpdate }) => {
 	const [price, setPrice] = useState(product.price);
 	const [offerPrice, setOfferPrice] = useState(product.offerPrice);
 	const [quantity, setQuantity] = useState(product.quantity); // Add quantity state
-	const [shop, setShop] = useState(product.shop || 'Prêt à Porter');
+	const [shop, setShop] = useState(product.shop || 'Nouveau');
 	const [existingImages, setExistingImages] = useState(product.image || []);
 	const [newImages, setNewImages] = useState([]);
 	const [submitting, setSubmitting] = useState(false);
@@ -104,7 +104,7 @@ const EditProductModal = ({ product, isOpen, onClose, getToken, onUpdate }) => {
 							onChange={e => setShop(e.target.value)}
 							className='border px-3 py-2 rounded w-full'
 						>
-							<option value='Prêt à Porter'>Prêt à Porter</option>
+							<option value='Nouveau'>Nouveau</option>
 							<option value='Fripe'>Fripe</option>
 						</select>
 					</div>

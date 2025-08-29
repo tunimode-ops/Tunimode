@@ -50,7 +50,7 @@ function generateProducts(count = 100) {
 			])} perfect for all occasions.`,
 			image: [img],
 			categories: randomElement(categories),
-			shop: Math.random() > 0.5 ? 'Prêt à Porter' : 'Fripe',
+			shop: Math.random() > 0.5 ? 'Nouveau' : 'Fripe',
 			quantity: Math.floor(Math.random() * 100) + 1, // Added quantity
 			test: 'test',
 			options: [

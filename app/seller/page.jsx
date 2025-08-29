@@ -15,7 +15,7 @@ const AddProduct = () => {
 	const [price, setPrice] = useState('');
 	const [offerPrice, setOfferPrice] = useState('');
 	const [quantity, setQuantity] = useState(0); // Add quantity state
-	const [shop, setShop] = useState('Prêt à Porter');
+	const [shop, setShop] = useState('Nouveau');
 	const [options, setOptions] = useState([]);
 	const [categoryData, setCategoryData] = useState({
 		selectedCategories: [],
@@ -58,7 +58,7 @@ const AddProduct = () => {
 				setPrice('');
 				setOfferPrice('');
 				setQuantity(0);
-				setShop('Prêt à Porter');
+				setShop('Nouveau');
 				setOptions([]);
 			} else toast.error(data.message);
 		} catch (err) {
@@ -131,7 +131,7 @@ const AddProduct = () => {
 						onChange={e => setShop(e.target.value)}
 						className='border px-3 py-2 rounded w-full'
 					>
-						<option value='Prêt à Porter'>Prêt à Porter</option>
+						<option value='Nouveau'>Nouveau</option>
 						<option value='Fripe'>Fripe</option>
 					</select>
 				</div>

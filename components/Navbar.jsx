@@ -33,10 +33,10 @@ const Navbar = () => {
 						Boutique
 					</Link>
 					<Link
-						href='/all-products?shop=Prêt à Porter'
+						href='/all-products?shop=Nouveau'
 						className='hover:text-main-color-600 transition'
 					>
-						Prêt-à-porter
+						Nouveau
 					</Link>
 					<Link
 						href='/all-products?shop=Fripe'
@@ -120,7 +120,7 @@ const Navbar = () => {
 				<button onClick={() => router.push('/all-products')}>
 					<BoxIcon />
 				</button>
-				<button onClick={() => router.push('/all-products?shop=Prêt à Porter')}>
+				<button onClick={() => router.push('/all-products?shop=Nouveau')}>
 					<span className='text-sm font-medium'>Prêt</span>
 				</button>
 				<button onClick={() => router.push('/all-products?shop=Fripe')}>
