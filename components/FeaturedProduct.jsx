@@ -65,6 +65,8 @@ const FeaturedCategories = () => {
 									className='h-3 w-3'
 									src={assets.redirect_icon}
 									alt='Icône de redirection'
+									priority={false}
+									loading='lazy'
 								/>
 							</button>
 						</div>

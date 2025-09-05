@@ -29,6 +29,8 @@ export default function AboutPage() {
 							width={400}
 							height={400}
 							className='rounded-2xl shadow-lg'
+							priority={false}
+							loading='lazy'
 						/>
 					</div>
 				</section>
@@ -57,6 +59,8 @@ export default function AboutPage() {
 							height={350}
 							className='rounded-2xl shadow-md'
 							style={{ objectFit: 'cover', maxHeight: '500px' }}
+							priority={false}
+							loading='lazy'
 						/>
 						<div>
 							<h2 className='text-3xl md:text-4xl font-bold mb-6 text-main-color-600'>
