@@ -10,7 +10,7 @@ const outfit = Outfit({ subsets: ['latin'], weight: ['300', '400', '500'] });
 export const metadata = {
 	title: 'Tunimode - Boutique de Mode en Ligne',
 	description:
-		'Découvrez les dernières tendances en matière de mode, vêtements et accessoires chez Tunimode. Achetez en ligne avec livraison rapide, paiements sécurisés et offres exclusives.',
+		'Découvrez les dernières tendances de mode sur Tunimode. Livraison rapide partout en Tunisie.',
 	keywords:
 		'Tunimode, mode, vêtements, accessoires, boutique en ligne, shopping, tendances, livraison rapide, paiements sécurisés, offres exclusives, Tunisie, fashion, e-commerce',
 	author: 'Tunimode Team',
@@ -18,12 +18,12 @@ export const metadata = {
 	openGraph: {
 		title: 'Tunimode - Boutique de Mode en Ligne',
 		description:
-			'Découvrez les dernières tendances en matière de mode, vêtements et accessoires chez Tunimode. Achetez en ligne avec livraison rapide, paiements sécurisés et offres exclusives.',
-		url: 'https://www.tunimode.com', // Replace with your actual domain
+			'Découvrez les dernières tendances de mode sur Tunimode. Livraison rapide partout en Tunisie.',
+		url: 'https://tunimode.com',
 		siteName: 'Tunimode',
 		images: [
 			{
-				url: 'https://www.tunimode.com/tunimode.png', // Replace with your actual image
+				url: 'https://tunimode.com/tunimode.webp',
 				width: 800,
 				height: 600,
 				alt: 'Tunimode Fashion',
@@ -36,8 +36,8 @@ export const metadata = {
 		card: 'summary_large_image',
 		title: 'Tunimode - Boutique de Mode en Ligne',
 		description:
-			'Découvrez les dernières tendances en matière de mode, vêtements et accessoires chez Tunimode. Achetez en ligne avec livraison rapide, paiements sécurisés et offres exclusives.',
-		images: ['https://www.tunimode.com/tunimode.png'], // Replace with your actual image
+			'Découvrez les dernières tendances de mode sur Tunimode. Livraison rapide partout en Tunisie.',
+		images: ['https://tunimode.com/tunimode.webp'],
 	},
 };
 
