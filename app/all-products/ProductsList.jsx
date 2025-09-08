@@ -27,8 +27,29 @@ const ProductsList = () => {
 		if (shopFromUrl) setSelectedShop(shopFromUrl);
 	}, [searchParams]);
 
+	// Shuffle array function
+	const shuffleArray = array => {
+		let currentIndex = array.length,
+			randomIndex;
+
+		// While there remain elements to shuffle.
+		while (currentIndex !== 0) {
+			// Pick a remaining element.
+			randomIndex = Math.floor(Math.random() * currentIndex);
+			currentIndex--;
+
+			// And swap it with the current element.
+			[array[currentIndex], array[randomIndex]] = [
+				array[randomIndex],
+				array[currentIndex],
+			];
+		}
+
+		return array;
+	};
+
 	const filteredProducts = useMemo(() => {
-		return products.filter(product => {
+		let currentProducts = products.filter(product => {
 			const matchesText =
 				product.name.toLowerCase().includes(searchText.toLowerCase()) ||
 				(product.description &&
@@ -42,6 +63,8 @@ const ProductsList = () => {
 
 			return matchesText && matchesCategory && matchesShop;
 		});
+
+		return shuffleArray([...currentProducts]);
 	}, [products, searchText, selectedCategory, selectedShop]);
 
 	// Pagination
@@ -118,7 +141,7 @@ const ProductsList = () => {
 					{paginatedProducts.length > 0 ? (
 						paginatedProducts.map((product, index) => (
 							<ProductCard
-								key={index}
+								key={product._id}
 								product={product}
 								className='transition-transform hover:scale-105 hover:shadow-lg'
 							/>
