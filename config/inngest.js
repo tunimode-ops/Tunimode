@@ -63,8 +63,6 @@ export const syncUserDeletion = inngest.createFunction(
 
 // inngest function to create user's order data to database
 
-// config/inngest.js
-
 export const createUserOrder = inngest.createFunction(
 	{
 		id: 'create-user-order',
