@@ -63,6 +63,8 @@ export const syncUserDeletion = inngest.createFunction(
 
 // inngest function to create user's order data to database
 
+// config/inngest.js
+
 export const createUserOrder = inngest.createFunction(
 	{
 		id: 'create-user-order',
@@ -73,24 +75,38 @@ export const createUserOrder = inngest.createFunction(
 	},
 	{ event: 'order/created' },
 	async ({ events }) => {
-		const orders = events.map(event => {
-			return {
-				userId: event.data.userId,
-				items: event.data.items,
-				amount: event.data.amount,
-				address: event.data.address,
-			};
-		});
-
 		await connectDB();
-		await Order.insertMany(orders);
-		// send email notification
-		for (const order of insertedOrders) {
+
+		for (const event of events) {
+			const { userId, items, amount, address } = event.data;
+
+			// Check if a similar order already exists within the last 10 seconds
+			const existing = await Order.findOne({
+				userId,
+				amount,
+				address,
+				createdAt: { $gte: new Date(Date.now() - 1000 * 10) }, // last 10s window
+			});
+
+			if (existing) {
+				console.log('⚠️ Duplicate order prevented:', existing._id.toString());
+				continue;
+			}
+
+			// Create new order
+			const newOrder = await Order.create({
+				userId,
+				items,
+				amount,
+				address,
+			});
+
+			// Send confirmation email
 			try {
-				const user = await User.findById(order.userId);
+				const user = await User.findById(newOrder.userId);
 				if (!user) continue;
 
-				const fullAddress = await Address.findById(order.address);
+				const fullAddress = await Address.findById(newOrder.address);
 				const addressText = fullAddress
 					? `${fullAddress.fullName}, ${fullAddress.area}, ${
 							fullAddress.city
@@ -99,7 +115,7 @@ export const createUserOrder = inngest.createFunction(
 
 				// Fetch product details
 				const itemsWithDetails = [];
-				for (const i of order.items) {
+				for (const i of newOrder.items) {
 					const product = await Product.findById(i.product);
 					if (product) {
 						itemsWithDetails.push({
@@ -113,31 +129,29 @@ export const createUserOrder = inngest.createFunction(
 				}
 
 				await emailjs.send(
-					'service_8wof16i', // Remplace par ton Service ID EmailJS
-					'template_er2dcz8', // Remplace par ton Template ID EmailJS
+					'service_8wof16i', // Service ID EmailJS
+					'template_er2dcz8', // Template ID EmailJS
 					{
 						to_name: user.fullName || user.name || 'Client',
 						to_email: user.email,
-						order_id: order._id.toString(),
-						amount: order.amount,
+						order_id: newOrder._id.toString(),
+						amount: newOrder.amount,
 						address: addressText,
 						items: itemsWithDetails
 							.map(
-								i =>
-									`<li style="display:flex; align-items:center; margin-bottom:10px;">
-         <img src="${i.imageUrl}" alt="${
-										i.name
-									}" style="width:60px; height:60px; object-fit:cover; border-radius:6px; margin-right:10px;">
-         <span>${i.name} x ${i.quantity} - ${
-										i.offerPrice > 0 && i.offerPrice < i.price
-											? i.offerPrice
-											: i.price
-									} DT</span>
-       </li>`
+								i => `<li style="display:flex; align-items:center; margin-bottom:10px;">
+                  <img src="${i.imageUrl}" alt="${i.name}" 
+                       style="width:60px; height:60px; object-fit:cover; border-radius:6px; margin-right:10px;">
+                  <span>${i.name} x ${i.quantity} - ${
+									i.offerPrice > 0 && i.offerPrice < i.price
+										? i.offerPrice
+										: i.price
+								} DT</span>
+                </li>`
 							)
 							.join(''),
 					},
-					'yWpbuDTAtjZannpid' // Remplace par ta Public Key EmailJS
+					'yWpbuDTAtjZannpid' // Public Key EmailJS
 				);
 			} catch (err) {
 				console.error('Erreur EmailJS :', err);
@@ -146,7 +160,7 @@ export const createUserOrder = inngest.createFunction(
 
 		return {
 			success: true,
-			processed: orders.length,
+			processed: events.length,
 		};
 	}
 );
